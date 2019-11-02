@@ -1,0 +1,56 @@
+/* pages/detail/detail.wxss */
+/* 图片 */
+.pic{
+  width:100%;
+  height: auto;
+  background: #ffffff;
+}
+.pic image{
+  height: 450rpx;
+  width:100%;
+}
+/* 名称，销量，价格 */
+.infoText{
+  background: #ffffff;
+  padding:30rpx;
+}
+.infoText .name{
+  padding-left:15rpx;
+}
+.infoText .sal_vol{
+  color:gray;
+  font-size: 25rpx;
+  margin:25rpx 0;
+}
+.infoText .price{
+  color:#FC703B;
+  font-size: 35rpx;
+}
+.infoText .price .start{
+  font-size: 25rpx;
+}
+.infoText .price .num{
+  font-weight: bold;
+}
+/* 菜品信息 */
+.menuInfo{
+  margin-top: 25rpx;
+  padding:25rpx;
+  background: #ffffff;
+}
+.menuInfo .title{
+  text-align: center;
+}
+.menuInfo .titleText{
+  font-size: 37rpx;
+}
+.menuInfo .menu_pros{
+  font-size: 32rpx;
+  margin-bottom: 25rpx;
+}
+.menuInfo .prop{
+  color:gray;
+  font-size: 28rpx;
+}
+
+

@@ -1,0 +1,282 @@
+/* miniprogram/pages/exam1/exam1.wxss */
+/* 公告，搜索 */
+.top{
+  background: #ffffff;
+  height:240rpx;
+}
+.top .notice{
+  font-size: 22rpx;
+  color:gray;
+  margin:0rpx 30rpx 0rpx 30rpx;
+}
+/* 菜单列表 */
+.content{
+  display: flex;
+  position: absolute;
+  left:0;
+  right:0;
+  bottom:120rpx;
+  top:240rpx;
+}
+/* 左边导航 */
+.content .left{
+  width:25%;
+  height:100%;
+}
+.content .left .navSide{
+  padding:20rpx;
+  /* border:1px solid red; */
+  font-size: 26rpx;
+}
+.content .left .active{
+  background: #ffffff;
+}
+.content .left .navSide:first-child{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content .left .navSide:first-child image{
+  width:50rpx;
+  height:50rpx;
+}
+.content .left .navSide:first-child .recommend{
+  width:60rpx;
+  font-weight: bold;
+
+}
+/* 右边食物列表 */
+.content .right{
+  width:75%;
+  padding-left:20rpx;
+  background: #ffffff;
+  height:100%;
+}
+.content .right .seriesName{
+  font-size: 25rpx;
+  color:gray;
+}
+.content .right .foodPic{
+  width:200rpx;
+  height:100%;
+}
+.content .right .foodBox{
+  height:200rpx;
+  display: flex;
+  margin:20rpx 20rpx 20rpx 0;
+}
+ .add_increas{
+  width:45rpx;
+  height:45rpx;
+}
+.content .right .foodInfo{
+  padding-left:15rpx;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  width:300rpx;
+}
+.content .right .foodInfo .foodName{
+  font-size: 30rpx; 
+}
+.content .right .foodInfo .sal_vol{
+  font-size: 20rpx;
+  color:gray;
+}
+.content .right .foodInfo .foodNum{
+  font-weight: bold;
+}
+ .price_amount{
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+ .price{
+  color:#FC703B;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+ .buy_amount{
+  /* margin-left: 100rpx; */
+  display: flex;
+  align-items: center;
+}
+.buy_amount .amount{
+  width:50rpx;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: bold;
+  height:50rpx;
+  line-height: 50rpx;
+}
+/* 购物车 */
+.shopcart{
+  position: fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:120rpx;
+  font-size: 32rpx;
+  display: flex;
+  background: #ffffff;
+  z-index: 2;
+  justify-content: space-between;
+  align-items: center;
+  color:gray;
+  padding-left:30rpx;
+}
+.shopcart image{
+  width:55rpx;
+  height:55rpx;
+}
+.shopcart .cart_left{
+  display: flex;
+  align-items: center;
+}
+.shopcart .cart_left .price_tips{
+  margin-left:40rpx;
+}
+.shopcart .cart_left .cart_icon{
+  position: relative;
+}
+/* 食物订单列表 */
+.orderList{
+  position:fixed;
+  bottom:120rpx;
+  max-height:400rpx;
+  height: auto;
+  left:0;
+  right:0;
+  background: #ffffff;
+  padding:30rpx;
+  z-index: 2;
+  
+}
+.orderList .orderScroll{
+  /* 当到达容器最大高度时让其发生滚动 */
+  height: 100%;
+  max-height: 340rpx;
+}
+.orderList .listTop{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 37rpx;
+}
+.orderList .orderListItem{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15rpx;
+}
+.orderList .orderListItem .listLeft{
+  width:50%;
+  font-size: 35rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.orderList .orderListItem .listLeft .remarks{
+  font-size: 23rpx;
+  color:gray;
+}
+.orderList .orderListItem .listRight{
+  display: flex;
+  justify-content: space-between;
+  width:50%;
+}
+.orderList .orderListItem .listRight .subtotal{
+  color:#FC703B;
+}
+.orderList .empty{
+  text-align: center;
+  color:#C1C1C1;
+}
+/* 购买数量 */
+.shopcart .cart_left .cart_icon .buy_all_amount{
+  position: absolute;
+  color:#ffffff;
+  background:#FC703B;
+  width:37rpx;
+  height:37rpx;
+  text-align: center;
+  border-radius: 50%;
+  top:-15rpx;
+  right:-10rpx;
+  font-size: 22rpx;
+  line-height: 37rpx;
+}
+.shopcart .pay_btn{
+  height:100%;
+  width:250rpx;
+  text-align: center;
+  line-height: 120rpx;
+}
+/* 选商品后的样式 */
+
+.shopcart view.payBtnActive{
+  background:#FC703B;
+  color:#ffffff;
+}
+.shopcart .cart_left text.priceActive{
+  color:#FC703B;
+}
+/* 弹出层：单个食物的购买选择 */
+.popupContent .foodName{
+  font-size: 35rpx;
+  margin-bottom: 35rpx;
+}
+.popupContent .buyTips{
+  font-size: 23rpx;
+  color:gray;
+  margin-bottom:35rpx;
+}
+.popupContent .buyMethods{
+  display: flex;
+  margin-bottom: 30rpx;
+}
+.popupContent .buyMethodsItem{
+  padding:15rpx 40rpx;
+  font-size: 28rpx;
+  /* box-shadow:  inset 0 0 1px #000; */
+    border:1px solid #c5c5c5;  
+}
+.popupContent .buyMethods .active{
+  /* box-shadow: outset 0 0 1px #FC703B; */
+  color:#FC703B;
+  background:#FFEFE7;
+  border:1px solid #FC703B;
+}
+.popupContent .buyMethodsItem:last-child{
+  margin-left:25rpx;
+}
+.popupContent .buy_amount{
+  margin-bottom: 35rpx;
+}
+/* 弹出层：一种食物的订单列表 */
+.popOneFoodOrder .oneFoodName{
+  font-size: 35rpx;
+}
+.popOneFoodOrder .specs{
+  font-size: 22rpx;
+  color:gray;
+}
+.popOneFoodOrder .oneFoodList{
+  margin-top: 60rpx;
+}
+.popOneFoodOrder .oneFoodList .oneFoodListItem{
+  margin-bottom: 60rpx;
+  display: flex;
+  align-items: center;
+  font-size: 33rpx;
+}
+.popOneFoodOrder .oneFoodList .oneFoodListItem .eatType{
+  width:50%;
+}
+.popOneFoodOrder .oneFoodList .oneFoodListItem .unitPrice{
+  width:25%;
+  color:gray;
+}
+.popOneFoodOrder .oneFoodList .oneFoodListItem .buy_amount{
+  width:25%;
+  justify-content: flex-end;
+}

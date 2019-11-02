@@ -1,0 +1,21 @@
+/* miniprogram/pages/test/test.wxss */
+.box{
+  /* display: flex; */
+  width:100%;
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+}
+.left{
+  height:300rpx;
+}
+.right{
+  /* width: 75%; */
+}
+.item{
+  width:300rpx;
+  height: 300rpx;
+  border:1px solid green;
+}

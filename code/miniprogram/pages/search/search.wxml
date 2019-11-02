@@ -1,0 +1,129 @@
+<!--pages/search/search.wxml-->
+<!-- 搜索框 -->
+<view class="search">
+  <van-search
+  value="{{ value }}"
+  placeholder="请输入想找的菜品"
+  use-action-slot
+  bind:search="onSearch"
+  shape="round"
+  focus
+  bind:change="onChange"
+  >
+  <view slot="action" bind:tap="onCancel" class="cancel">取消</view>
+  </van-search>
+</view>
+<!-- 热搜菜品推荐列表 -->
+<view class="recommend" wx:if="{{ searchChangeList.length==0&&seaConList.length==0}}">
+  <van-cell-group>
+     <van-cell title="热搜菜品推荐" title-class="list_title" />
+    <van-cell title="{{'('+item.id+')'+item.name}}" value="{{'销量 '+item.sal_vol}}"  value-class="sal_vol" wx:for="{{hotFood}}" wx:key="index" bind:click="toSeaConList" data-id="{{item._id}}"/>
+  </van-cell-group>
+  <view class="blank"></view>
+</view>
+<!-- 搜索框内容变化时的列表 -->
+<view class="searchChange" wx:if="{{ seaConList.length==0&&searchChangeList.length>0}}">
+  <van-cell-group>
+    <van-cell title="{{'('+item.id+')'+item.name}}" value="{{'销量 '+item.sal_vol}}"  value-class="sal_vol" wx:for="{{searchChangeList}}" wx:key="index"  bind:click="toSeaConList" data-id="{{item._id}}"/>
+  </van-cell-group>
+  <view class="blank"></view>
+</view>
+<!-- 键盘确定搜索内容时获取的列表 -->
+  <view>
+          <view class="foodBox" wx:for="{{seaConList}}" wx:key="index">
+            <image src="{{item.img_src}}" class="foodPic" mode="aspectFill" lazy-load="true"></image>
+            <view class="foodInfo">
+                <view>
+                  <view class="foodName">(<text class="foodNum">{{item.id}}</text>){{item.name}}</view>
+                  <text class="sal_vol" decode="true">销量&nbsp;{{item.sal_vol}}</text>
+                </view>
+                <view class="price_amount">
+                  <view class="price">￥{{item.price}}</view>
+                  <view class="buy_amount">
+                   <block wx:if="{{item.num>0}}">
+                     <image src="../.././images/del.png" class="add_increas"  bindtap="listDelCount"  data-foodId="{{item.id}}"></image><view class="amount">{{item.num}}</view>
+                   </block>
+                   <image src="../.././images/add.png" class="add_increas" bindtap="showFoodDet" data-foodId="{{item.id}}"></image>
+                  </view>
+                </view>
+            </view>
+          </view>
+          <view class="blank"></view>
+  </view>
+<!-- 底部购物车 -->
+<view class="shopcart">
+  <view class="cart_left">
+    <view class="cart_icon">
+       <image src="cloud://web-test-dev-e0cuo.7765-web-test-dev-e0cuo/shopcart.png" bindtap="orderListShowHide"></image>
+       <!-- 当购买数量>0时才显示数量图标 -->
+       <view class="buy_all_amount" wx:if="{{allNum>0}}">{{allNum}}</view>
+    </view>
+     <text class="price_tips priceActive" wx:if="{{allNum>0}}">￥{{allPrice}}</text>
+    <text class="price_tips" wx:else>免排队</text>
+  </view>
+  <view class="pay_btn payBtnActive" wx:if="{{allNum>0}}">选好了</view>
+  <view class="pay_btn" wx:else>请先点餐</view>
+</view>
+<!-- 食物的订单列表 -->
+<view class="orderList" wx:if="{{orderList}}">
+  <scroll-view scroll-y="true" class="orderScroll">
+      <view class="listTop">
+        <text>已选{{allNum}}份</text>
+       <van-icon name="delete" />
+      </view>
+      <van-divider />
+      <view class="listBody">
+          <view class="orderListItem" wx:for="{{order}}" wx:key="index">
+            <view class="listLeft"><text>({{item.id}}){{item.name}}</text><text class="remarks">({{item.eatType}})</text></view>
+            <view class="listRight">
+               <view class="subtotal">￥{{item.unitPrice*item.num}}</view>
+              <view class="buy_amount">
+              <image src="../.././images/del.png" class="add_increas" bindtap="orderDelBtn" data-orderId="{{item._id}}"></image><view class="amount">{{item.num}}</view><image src="../.././images/add.png" class="add_increas"  bindtap="orderAddBtn" data-orderId="{{item._id}}"></image>
+              </view>
+            </view>
+           
+         </view> 
+         <view class="empty" wx:if="{{order.length==0}}">空空如也~~</view>
+      </view>
+  </scroll-view>
+</view>
+<!-- 弹出层：单种食物的不同规格订单列表 点击食物列表的减按钮触发-->
+<van-popup show="{{ oneFoodOrderShow }}" bind:close="oneFoodOrderClose" custom-style="padding:35rpx" position="bottom">
+  <view class="popOneFoodOrder">
+     <view class="oneFoodName">({{oneFoodOrder[0].id}}){{oneFoodOrder[0].name}}</view>
+      <view class="specs">已选菜品规格</view>
+      <view class="oneFoodList">
+        <view class="oneFoodListItem" wx:for="{{oneFoodOrder}}" wx:key="index" wx:if="{{item.num>0}}">
+          <view class="eatType">{{item.eatType}}</view>
+          <view class="unitPrice">￥{{item.unitPrice*item.num}}</view>
+          <view class="buy_amount">
+              <image src="../.././images/del.png" class="add_increas" bindtap="oneFoodDel" data-id="{{item._id}}"></image>
+              <view class="amount">{{item.num}}</view>
+              <image src="../.././images/add_disabled.png" class="add_increas"></image>
+          </view>
+        </view>
+      </view>
+      <van-button color="#FC703B" size="large" bind:click="oneFoodOrderClose" custom-style="height:80rpx;line-height:80rpx">确定</van-button>
+  </view>
+</van-popup>
+<!-- 食物订单列表的遮罩层 -->
+<van-overlay show="{{ overlay }}" bind:click="orderListHide"/>
+ <!-- 弹出层：单件商品的购买选择  -->
+ <van-popup show="{{ show }}" bind:close="onClose" position="bottom" custom-style="padding:35rpx" closeable close-icon="cross">
+  <view class="popupContent">
+     <view class="foodName">({{foodId}}){{foodName}}</view>
+    <view class="buyTips">请选择食用方式</view>
+    <view class="buyMethods">
+      <view class="buyMethodsItem {{activeIndex==index?'active':''}}" bindtap="eatMethods" id="{{index}}" wx:for="{{eatType}}" wx:key="index">{{item}}</view>
+    </view>
+    <view class="price_amount">
+        <view class="price">￥{{unitPrice*popNum}}</view>
+        <view class="buy_amount">
+            <image src="../.././images/del.png" class="add_increas" bindtap="delCount"></image><view class="amount">{{popNum}}</view><image src="../.././images/add.png" class="add_increas"  bindtap="addCount"></image>
+        </view>
+    </view> 
+    <van-button color="#FC703B" size="large" bind:click="combineNum" custom-style="height:80rpx;line-height:80rpx">确定</van-button>
+  </view> 
+ </van-popup>
+
+

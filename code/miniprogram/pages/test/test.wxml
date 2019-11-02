@@ -1,0 +1,18 @@
+<!--miniprogram/pages/test/test.wxml-->
+<view class="box">
+<scroll-view scroll-y="true"  class="left" scroll-into-view="scrollId2">
+    <!-- <block >  -->
+    <view  class="item"  wx:for="{{list}}" wx:key="*this" id="scrollId{{index}}">{{item}}
+    <text>scrollId{{index}}</text>
+    </view>
+    <!-- </block> -->
+
+</scroll-view>
+<scroll-view scroll-y="true" style="height: 100px" class="right" scroll-into-view="blue">
+    <view style="background: red; width: 100px; height: 100px" id="red"></view>
+    <view style="background: green; width: 100px; height: 100px" id="green"></view>
+    <view style="background: blue; width: 100px; height: 100px" id="blue"></view>
+    <view style="background: yellow; width: 100px; height: 100px" id="yellow"></view>
+</scroll-view>
+</view>
+

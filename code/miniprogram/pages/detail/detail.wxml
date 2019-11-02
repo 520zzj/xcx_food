@@ -1,0 +1,20 @@
+<!--pages/detail/detail.wxml-->
+<view class="pic">
+  <image lazy-load="true" mode="aspectFill" src="{{food[0].img_src}}"></image>
+</view>
+<view class="infoText">
+  <view class="name">({{food[0].id}}){{food[0].name}}</view>
+  <view class="sal_vol">销量 {{food[0].sal_vol}}</view>
+  <view class="price"><text class="num">￥{{food[0].price}}</text><text class="start"> 起</text></view>
+</view>
+
+<view class="menuInfo">
+  <view class="title">
+    <van-icon name="orders-o" custom-style="position:relative;top:10rpx;"/>
+    <text class="titleText">菜品信息</text>
+  </view>
+    <van-divider />
+    <view class="menu_pros">菜品参数</view>
+    <view class="prop">配汤优惠：{{food[0].food_param.discount}}</view>
+    <view class="prop">食用方式：{{food[0].food_param.eatType}}</view>
+</view>

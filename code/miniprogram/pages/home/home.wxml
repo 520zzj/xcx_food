@@ -1,0 +1,129 @@
+<!--miniprogram/pages/exam1/exam1.wxml-->
+<!-- 搜索，公告 -->
+<view class="top">
+  <view class="notice">
+    <text decode="true">公告:&nbsp;&nbsp;欢迎光临，祝你用餐愉快</text>
+  </view>
+  <van-divider customStyle="margin:30rpx 30rpx 0rpx 30rpx"/>
+  <van-search value="{{ value }}" placeholder="请输入想找的菜品名" bind:focus="toSearchPage" shape="round"/>
+</view>
+<!-- 侧边导航，菜单列表 -->
+<view class="content">
+<!-- 左边导航 -->
+    <scroll-view class="left" scroll-y="true" scroll-into-view="{{scrollNavId}}" id="navScroll">
+        <view class="navSide {{0==navActive?'active':''}}" id="scrollNavId0" bindtap="toView">
+              <image src="cloud://web-test-dev-e0cuo.7765-web-test-dev-e0cuo/zan.png" id="scrollNavId0Image"></image>
+            <view class="recommend" id="scrollNavId0View">{{list[0].foodSeries}}</view>
+        </view>
+        <view class="navSide {{index+1==navActive?'active':''}}" wx:for="{{listNew}}" wx:key="_id" id="scrollNavId{{index+1}}"  bindtap="toView">
+          {{item.foodSeries}}
+        </view>
+    
+    </scroll-view>
+    <!-- 右边菜单列表 -->
+    <scroll-view class="right" scroll-y="true" scroll-into-view="{{scrollListId}}" bindscroll="toNavside" scroll-with-animation="true">
+      <view wx:for="{{list}}" wx:key="foodSeries" id="scrollListId{{index}}" class="listItem">             
+        <view>
+          <text class="seriesName">{{item.foodSeries}}</text>
+        </view>
+        <view wx:for="{{item.food}}" wx:key="id" wx:for-item="oneFood">
+          <view class="foodBox" bindtap="toDetail" data-id="{{oneFood._id}}">
+            <image src="{{oneFood.img_src}}" class="foodPic" mode="aspectFill" lazy-load="true" data-id="{{oneFood._id}}"></image>
+            <view class="foodInfo" data-id="{{oneFood._id}}">
+                <view data-id="{{oneFood._id}}">
+                  <view class="foodName" data-id="{{oneFood._id}}">(<text class="foodNum">{{oneFood.id}}</text>){{oneFood.name}}</view>
+                  <text class="sal_vol" decode="true" data-id="{{oneFood._id}}">销量&nbsp;{{oneFood.sal_vol}}</text>
+                </view>
+                <view class="price_amount" data-id="{{oneFood._id}}">
+                  <view class="price" data-id="{{oneFood._id}}">￥{{oneFood.price}}</view>
+                  <view class="buy_amount">
+                   <block wx:if="{{oneFood.num>0}}">
+                     <image src="../.././images/del.png" class="add_increas"  catchtap="listDelCount"  data-foodId="{{oneFood.id}}"></image><view class="amount">{{oneFood.num}}</view>
+                   </block>
+                   <image src="../.././images/add.png" class="add_increas" catchtap="showFoodDet" data-foodId="{{oneFood.id}}"></image>
+                  </view>
+                </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+</view>
+<!-- 底部购物车 -->
+<view class="shopcart">
+  <view class="cart_left">
+    <view class="cart_icon">
+       <image src="cloud://web-test-dev-e0cuo.7765-web-test-dev-e0cuo/shopcart.png" bindtap="orderListShowHide"></image>
+       <!-- 当购买数量>0时才显示数量图标 -->
+       <view class="buy_all_amount" wx:if="{{allNum>0}}">{{allNum}}</view>
+    </view>
+     <text class="price_tips priceActive" wx:if="{{allNum>0}}">￥{{allPrice}}</text>
+    <text class="price_tips" wx:else>免排队</text>
+  </view>
+  <view class="pay_btn payBtnActive" wx:if="{{allNum>0}}">选好了</view>
+  <view class="pay_btn" wx:else>请先点餐</view>
+</view>
+<!-- 食物的订单列表 -->
+<view class="orderList" wx:if="{{orderList}}">
+  <scroll-view scroll-y="true" class="orderScroll">
+      <view class="listTop">
+        <text>已选{{allNum}}份</text>
+       <van-icon name="delete" bind:click="delAll"/>
+      </view>
+      <van-divider />
+      <view class="listBody">
+          <view class="orderListItem" wx:for="{{order}}" wx:key="index">
+            <view class="listLeft"><text>({{item.id}}){{item.name}}</text><text class="remarks">({{item.eatType}})</text></view>
+            <view class="listRight">
+               <view class="subtotal">￥{{item.unitPrice*item.num}}</view>
+              <view class="buy_amount">
+              <image src="../.././images/del.png" class="add_increas" bindtap="orderDelBtn" data-orderId="{{item._id}}"></image><view class="amount">{{item.num}}</view><image src="../.././images/add.png" class="add_increas"  bindtap="orderAddBtn" data-orderId="{{item._id}}"></image>
+              </view>
+            </view>
+           
+         </view> 
+         <view class="empty" wx:if="{{order.length==0}}">空空如也~~</view>
+      </view>
+  </scroll-view>
+</view>
+<!-- 弹出层：单种食物的不同规格订单列表 点击食物列表的减按钮触发-->
+<van-popup show="{{ oneFoodOrderShow }}" bind:close="oneFoodOrderClose" custom-style="padding:35rpx" position="bottom">
+  <view class="popOneFoodOrder">
+     <view class="oneFoodName">({{oneFoodOrder[0].id}}){{oneFoodOrder[0].name}}</view>
+      <view class="specs">已选菜品规格</view>
+      <view class="oneFoodList">
+        <view class="oneFoodListItem" wx:for="{{oneFoodOrder}}" wx:key="index" wx:if="{{item.num>0}}">
+          <view class="eatType">{{item.eatType}}</view>
+          <view class="unitPrice">￥{{item.unitPrice*item.num}}</view>
+          <view class="buy_amount">
+              <image src="../.././images/del.png" class="add_increas" bindtap="oneFoodDel" data-id="{{item._id}}"></image>
+              <view class="amount">{{item.num}}</view>
+              <image src="../.././images/add_disabled.png" class="add_increas"></image>
+          </view>
+        </view>
+      </view>
+      <van-button color="#FC703B" size="large" bind:click="oneFoodOrderClose" custom-style="height:80rpx;line-height:80rpx">确定</van-button>
+  </view>
+</van-popup>
+<!-- 食物订单列表的遮罩层 -->
+<van-overlay show="{{ overlay }}" bind:click="orderListHide"/>
+ <!-- 弹出层：单件商品的购买选择  -->
+ <van-popup show="{{ show }}" bind:close="onClose" position="bottom" custom-style="padding:35rpx" closeable close-icon="cross">
+  <view class="popupContent">
+     <view class="foodName">({{foodId}}){{foodName}}</view>
+    <view class="buyTips">请选择食用方式</view>
+    <view class="buyMethods">
+      <view class="buyMethodsItem {{activeIndex==index?'active':''}}" bindtap="eatMethods" id="{{index}}" wx:for="{{eatType}}" wx:key="index">{{item}}</view>
+    </view>
+    <view class="price_amount">
+        <view class="price">￥{{unitPrice*popNum}}</view>
+        <view class="buy_amount">
+            <image src="../.././images/del.png" class="add_increas" bindtap="delCount"></image><view class="amount">{{popNum}}</view><image src="../.././images/add.png" class="add_increas"  bindtap="addCount"></image>
+        </view>
+    </view> 
+    <van-button color="#FC703B" size="large" bind:click="combineNum" custom-style="height:80rpx;line-height:80rpx">确定</van-button>
+  </view> 
+ </van-popup>
+
+
+
