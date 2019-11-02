@@ -1,0 +1,8 @@
+1.页面跳转wx.navigator({url:path}),路径path是相对路径
+2.如商品列表信息的集合小程序端没有更新修改的权限，可用云函数去更新修改，
+调用云函数api：wx.cloud.function()中的data:{x:value},value值不能是表达式
+3.动态修改元素的样式，在元素上通过三目运算符来动态添加类
+4.scroll-view里面的元素进行列表渲染wx:for不能在block上面
+5.页面跳转wx.navigator{url:‘test?id=1’}有两种传参，一是url的path，二是用  res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })，用第一种传参用option.id这种方式接受，不用option.query。第二种用 eventChannel.on('acceptDataFromOpenerPage', function(data) {
+      console.log(data)
+    })接受
