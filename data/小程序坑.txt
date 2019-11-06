@@ -1,8 +1,8 @@
-1.Ò³ÃæÌø×ªwx.navigator({url:path}),Â·¾¶pathÊÇÏà¶ÔÂ·¾¶
-2.ÈçÉÌÆ·ÁĞ±íĞÅÏ¢µÄ¼¯ºÏĞ¡³ÌĞò¶ËÃ»ÓĞ¸üĞÂĞŞ¸ÄµÄÈ¨ÏŞ£¬¿ÉÓÃÔÆº¯ÊıÈ¥¸üĞÂĞŞ¸Ä£¬
-µ÷ÓÃÔÆº¯Êıapi£ºwx.cloud.function()ÖĞµÄdata:{x:value},valueÖµ²»ÄÜÊÇ±í´ïÊ½
-3.¶¯Ì¬ĞŞ¸ÄÔªËØµÄÑùÊ½£¬ÔÚÔªËØÉÏÍ¨¹ıÈıÄ¿ÔËËã·ûÀ´¶¯Ì¬Ìí¼ÓÀà
-4.scroll-viewÀïÃæµÄÔªËØ½øĞĞÁĞ±íäÖÈ¾wx:for²»ÄÜÔÚblockÉÏÃæ
-5.Ò³ÃæÌø×ªwx.navigator{url:¡®test?id=1¡¯}ÓĞÁ½ÖÖ´«²Î£¬Ò»ÊÇurlµÄpath£¬¶şÊÇÓÃ  res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })£¬ÓÃµÚÒ»ÖÖ´«²ÎÓÃoption.idÕâÖÖ·½Ê½½ÓÊÜ£¬²»ÓÃoption.query¡£µÚ¶şÖÖÓÃ eventChannel.on('acceptDataFromOpenerPage', function(data) {
+1.é¡µé¢è·³è½¬wx.navigator({url:path}),è·¯å¾„pathæ˜¯ç›¸å¯¹è·¯å¾„
+2.å¦‚å•†å“åˆ—è¡¨ä¿¡æ¯çš„é›†åˆå°ç¨‹åºç«¯æ²¡æœ‰æ›´æ–°ä¿®æ”¹çš„æƒé™ï¼Œå¯ç”¨äº‘å‡½æ•°å»æ›´æ–°ä¿®æ”¹ï¼Œ
+è°ƒç”¨äº‘å‡½æ•°apiï¼šwx.cloud.function()ä¸­çš„data:{x:value},valueå€¼ä¸èƒ½æ˜¯è¡¨è¾¾å¼
+3.åŠ¨æ€ä¿®æ”¹å…ƒç´ çš„æ ·å¼ï¼Œåœ¨å…ƒç´ ä¸Šé€šè¿‡ä¸‰ç›®è¿ç®—ç¬¦æ¥åŠ¨æ€æ·»åŠ ç±»
+4.scroll-viewé‡Œé¢çš„å…ƒç´ è¿›è¡Œåˆ—è¡¨æ¸²æŸ“wx:forä¸èƒ½åœ¨blockä¸Šé¢
+5.é¡µé¢è·³è½¬wx.navigator{url:â€˜test?id=1â€™}æœ‰ä¸¤ç§ä¼ å‚ï¼Œä¸€æ˜¯urlçš„pathï¼ŒäºŒæ˜¯ç”¨  res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })ï¼Œç”¨ç¬¬ä¸€ç§ä¼ å‚ç”¨option.idè¿™ç§æ–¹å¼æ¥å—ï¼Œä¸ç”¨option.query.idã€‚ç¬¬äºŒç§ç”¨ eventChannel.on('acceptDataFromOpenerPage', function(data) {
       console.log(data)
-    })½ÓÊÜ
+    })æ¥å—
